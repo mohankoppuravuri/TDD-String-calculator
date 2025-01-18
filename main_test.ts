@@ -56,3 +56,7 @@ Deno.test("Test 9", function addTest() {
 Deno.test("Test 10", function addTest() {
   assertEquals(add("1, 1001"), 1);
 });
+
+Deno.test("Test 11", function addTest() {
+  assertEquals(add("//[***]\n1***2***3"), 6);
+});
