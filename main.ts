@@ -1,4 +1,6 @@
 export function add(numbers: string): number {
-  const [a = 0, b = 0] = numbers.split(",");
-  return Number(a) + Number(b);
+  const numbersArray = numbers.split(",");
+  return numbersArray.reduce((acc, currentNumber) => {
+    return acc + Number(currentNumber ?? 0);
+  }, 0);
 }
