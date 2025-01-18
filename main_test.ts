@@ -24,3 +24,7 @@ Deno.test("Test 5", function addTest() {
 Deno.test("Test 6", function addTest() {
   assertEquals(add("1,2,3"), 6);
 });
+
+Deno.test("Test 7", function addTest() {
+  assertEquals(add("1\n2,3"), 6);
+});
