@@ -16,7 +16,13 @@ export function add(numbers: string): number {
   const firstLine = numbers.split(/[\n]/)[0];
   if (firstLine.substring(0, 2) === "//") {
     // Custom delimiter
-    const delimiter = firstLine.substring(2);
+    // First line single delimiter //* length = 3;
+    // First line multiple delimiter //[**] delimiter starts from  3rd index to last but one index;
+
+    const delimiter =
+      firstLine.length === 3
+        ? firstLine.substring(2)
+        : firstLine.substring(3, firstLine.length - 1);
     const numbersArray = numbers.split(/[\n]/)[1].split(delimiter);
     return sumOfArray(numbersArray);
   }
