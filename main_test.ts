@@ -42,3 +42,13 @@ Deno.test("Test 9", function addTest() {
     `negative numbers not allowed -1`
   );
 });
+
+Deno.test("Test 9", function addTest() {
+  assertThrows(
+    () => {
+      add("-1,-3,-4");
+    },
+    Error,
+    `negative numbers not allowed -1, -3, -4`
+  );
+});
