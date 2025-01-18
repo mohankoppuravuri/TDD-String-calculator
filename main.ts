@@ -1,8 +1,12 @@
 function sumOfArray(numbersArray: string[]): number {
+  const collectNegativeNumbers = numbersArray.filter((a) => Number(a) < 0);
+  if (collectNegativeNumbers.length) {
+    throw Error(
+      `negative numbers not allowed ${collectNegativeNumbers.join(", ")}`
+    );
+  }
+
   return numbersArray.reduce((acc, currentNumber) => {
-    if (Number(currentNumber) === -1) {
-      throw Error(`negative numbers not allowed ${currentNumber}`);
-    }
     return acc + Number(currentNumber ?? 0);
   }, 0);
 }
