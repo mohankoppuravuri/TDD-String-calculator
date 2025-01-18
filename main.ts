@@ -5,8 +5,9 @@ function sumOfArray(numbersArray: string[]): number {
       `negative numbers not allowed ${collectNegativeNumbers.join(", ")}`
     );
   }
+  const numbersLesserThan1000 = numbersArray.filter((a) => Number(a) < 1000);
 
-  return numbersArray.reduce((acc, currentNumber) => {
+  return numbersLesserThan1000.reduce((acc, currentNumber) => {
     return acc + Number(currentNumber ?? 0);
   }, 0);
 }
