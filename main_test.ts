@@ -1,4 +1,4 @@
-import { assertEquals } from "@std/assert";
+import { assertEquals, assertThrows } from "@std/assert";
 import { add } from "./main.ts";
 
 Deno.test("Test 1", function addTest() {
@@ -31,4 +31,14 @@ Deno.test("Test 7", function addTest() {
 
 Deno.test("Test 8", function addTest() {
   assertEquals(add("//;\n1;2"), 3);
+});
+
+Deno.test("Test 9", function addTest() {
+  assertThrows(
+    () => {
+      add("-1");
+    },
+    Error,
+    `negative numbers not allowed -1`
+  );
 });
