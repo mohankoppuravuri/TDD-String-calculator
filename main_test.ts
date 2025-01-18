@@ -52,3 +52,7 @@ Deno.test("Test 9", function addTest() {
     `negative numbers not allowed -1, -3, -4`
   );
 });
+
+Deno.test("Test 10", function addTest() {
+  assertEquals(add("1, 1001"), 1);
+});
