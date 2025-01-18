@@ -28,3 +28,7 @@ Deno.test("Test 6", function addTest() {
 Deno.test("Test 7", function addTest() {
   assertEquals(add("1\n2,3"), 6);
 });
+
+Deno.test("Test 8", function addTest() {
+  assertEquals(add("//;\n1;2"), 3);
+});
