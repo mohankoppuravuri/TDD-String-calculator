@@ -16,3 +16,11 @@ Deno.test("Test 3", function addTest() {
 Deno.test("Test 4", function addTest() {
   assertEquals(add("2"), 2);
 });
+
+Deno.test("Test 5", function addTest() {
+  assertEquals(add("1"), 1);
+});
+
+Deno.test("Test 6", function addTest() {
+  assertEquals(add("1,2,3"), 6);
+});
