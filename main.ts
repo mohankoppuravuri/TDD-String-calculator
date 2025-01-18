@@ -1,3 +1,19 @@
+function getDelimiterRegex(delimiter: string): RegExp {
+  const regexString = delimiter
+    .split("")
+    .reduce((regexString, currentCharacter) => {
+      if (currentCharacter === "[") {
+        return regexString + regexString ? "|(" : "(";
+      }
+      if (currentCharacter === "]") {
+        return regexString + ")";
+      }
+      return regexString + "/" + currentCharacter;
+    }, "");
+
+  return new RegExp(regexString);
+}
+
 function sumOfArray(numbersArray: string[]): number {
   const collectNegativeNumbers = numbersArray.filter((a) => Number(a) < 0);
   if (collectNegativeNumbers.length) {
@@ -22,7 +38,7 @@ export function add(numbers: string): number {
     const delimiter =
       firstLine.length === 3
         ? firstLine.substring(2)
-        : firstLine.substring(3, firstLine.length - 1);
+        : getDelimiterRegex(firstLine.substring(2));
     const numbersArray = numbers.split(/[\n]/)[1].split(delimiter);
     return sumOfArray(numbersArray);
   }
