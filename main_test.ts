@@ -65,3 +65,7 @@ Deno.test("Test 12", function addTest() {
   assertEquals(add("//[*][%]\n1*2%3"), 6);
   assertEquals(add("//[**][*%]\n1**2*%3"), 6);
 });
+
+Deno.test("Test 13: Multiply numbers when delimiter is *", function addTest() {
+  assertEquals(add("//*\n3*2"), 6);
+});

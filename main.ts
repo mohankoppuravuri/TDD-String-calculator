@@ -15,6 +15,22 @@ function getDelimiterRegex(delimiter: string): RegExp {
 }
 
 function sumOfArray(numbersArray: string[]): number {
+  const numbersLesserThan1000 = formatNumbersArray(numbersArray);
+
+  return numbersLesserThan1000.reduce((acc, currentNumber) => {
+    return acc + Number(currentNumber ?? 0);
+  }, 0);
+}
+
+function multiplyNumbers(numbersArray: string[]): number {
+  const numbersLesserThan1000 = formatNumbersArray(numbersArray);
+
+  return numbersLesserThan1000.reduce((acc, currentNumber) => {
+    return acc * Number(currentNumber ?? 1);
+  }, 1);
+}
+
+function formatNumbersArray(numbersArray: string[]) {
   const collectNegativeNumbers = numbersArray.filter((a) => Number(a) < 0);
   if (collectNegativeNumbers.length) {
     throw Error(
@@ -22,10 +38,7 @@ function sumOfArray(numbersArray: string[]): number {
     );
   }
   const numbersLesserThan1000 = numbersArray.filter((a) => Number(a) < 1000);
-
-  return numbersLesserThan1000.reduce((acc, currentNumber) => {
-    return acc + Number(currentNumber ?? 0);
-  }, 0);
+  return numbersLesserThan1000;
 }
 
 export function add(numbers: string): number {
@@ -39,8 +52,15 @@ export function add(numbers: string): number {
       firstLine.length === 3
         ? firstLine.substring(2)
         : getDelimiterRegex(firstLine.substring(2));
-    const numbersArray = numbers.split(/[\n]/)[1].split(delimiter);
-    return sumOfArray(numbersArray);
+      
+      const numbersArray = numbers.split(/[\n]/)[1].split(delimiter);
+
+      if (delimiter === "*") {
+        // Multiple
+        return multiplyNumbers(numbersArray);
+      }else {
+      return sumOfArray(numbersArray);
+    }
   }
   const numbersArray = numbers.split(/[\n,]/);
   return sumOfArray(numbersArray);
