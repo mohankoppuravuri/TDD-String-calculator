@@ -69,3 +69,7 @@ Deno.test("Test 12", function addTest() {
 Deno.test("Test 13: Multiply numbers when delimiter is *", function addTest() {
   assertEquals(add("//*\n3*2"), 6);
 });
+
+Deno.test("Test 14: Consider numbers only at odd indexes", function addTest() {
+  assertEquals(add("//*\n3*2", "odd"), 3);
+});

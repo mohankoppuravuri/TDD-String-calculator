@@ -1,3 +1,4 @@
+type EvenOrOddType = "odd" | "even"
 function getDelimiterRegex(delimiter: string): RegExp {
   const regexString = delimiter
     .split("")
@@ -15,33 +16,42 @@ function getDelimiterRegex(delimiter: string): RegExp {
 }
 
 function sumOfArray(numbersArray: string[]): number {
-  const numbersLesserThan1000 = formatNumbersArray(numbersArray);
+  // const numbersLesserThan1000 = formatNumbersArray(numbersArray, evenOrOdd);
 
-  return numbersLesserThan1000.reduce((acc, currentNumber) => {
+  return numbersArray.reduce((acc, currentNumber) => {
     return acc + Number(currentNumber ?? 0);
   }, 0);
 }
 
 function multiplyNumbers(numbersArray: string[]): number {
-  const numbersLesserThan1000 = formatNumbersArray(numbersArray);
+  // const numbersLesserThan1000 = formatNumbersArray(numbersArray, evenOrOdd);
 
-  return numbersLesserThan1000.reduce((acc, currentNumber) => {
+  return numbersArray.reduce((acc, currentNumber) => {
     return acc * Number(currentNumber ?? 1);
   }, 1);
 }
 
-function formatNumbersArray(numbersArray: string[]) {
+function formatNumbersArray(numbersArray: string[], evenOrOdd?: EvenOrOddType) {
   const collectNegativeNumbers = numbersArray.filter((a) => Number(a) < 0);
   if (collectNegativeNumbers.length) {
     throw Error(
       `negative numbers not allowed ${collectNegativeNumbers.join(", ")}`
     );
   }
-  const numbersLesserThan1000 = numbersArray.filter((a) => Number(a) < 1000);
+  const numbersLesserThan1000 = numbersArray.filter((a, idx) => {
+    if (evenOrOdd) {
+      if (evenOrOdd === "even") {
+        return Number(a) < 1000 && (idx +1)% 2 === 0;
+      }
+      // odd
+      return Number(a) < 1000 && (idx + 1) % 2 !== 0; 
+    } 
+    return Number(a) < 1000
+  });
   return numbersLesserThan1000;
 }
 
-export function add(numbers: string): number {
+export function add(numbers: string, evenOrOdd?: EvenOrOddType): number {
   const firstLine = numbers.split(/[\n]/)[0];
   if (firstLine.substring(0, 2) === "//") {
     // Custom delimiter
@@ -57,11 +67,11 @@ export function add(numbers: string): number {
 
       if (delimiter === "*") {
         // Multiple
-        return multiplyNumbers(numbersArray);
+        return multiplyNumbers(formatNumbersArray(numbersArray, evenOrOdd));
       }else {
-      return sumOfArray(numbersArray);
+      return sumOfArray(formatNumbersArray(numbersArray, evenOrOdd));
     }
   }
   const numbersArray = numbers.split(/[\n,]/);
-  return sumOfArray(numbersArray);
+  return sumOfArray(formatNumbersArray(numbersArray, evenOrOdd));
 }
